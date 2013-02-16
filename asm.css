@@ -1,12 +1,14 @@
 body {
     background: black;
-    color: #0c0;
     margin: 4em;
     font-family: Consolas, Menlo, Monaco, Lucida Console, Courier New, Courier, monospaced;
 }
 
+body, a {
+    color: #0a0;
+}
+
 a {
-    color: #0c0;
     font-weight: bold;
 }
 
