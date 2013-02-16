@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<title>asm.js - frequently asked questions</title>
+<link rel="stylesheet" href="asm.css">
+</head>
+
+<body>
+<h1>asm.js - frequently asked questions</h1>
+
+<p><div class="question"><strong>Q. Is asm.js a new language?</strong></div>
+<div class="answer"><strong>A.</strong> No, it's just (a subset of) JavaScript. An asm.js program will behave identically whether it is run in an existing JavaScript engine or an ahead-of-time (AOT) compiling engine that recognizes and optimizes asm.js&mdash;except for speed, of course!</div></p>
+
+<p><div class="question"><strong>Q. What kind of performance benefits can I expect to get with asm.js?</strong></div>
+<div class="answer"><strong>A.</strong> It's early to say, but our preliminary benchmarks of C programs compiled to asm.js are usually within a factor of 2 slowdown over native compilation with GCC. We will publish more benchmarks as we collect them.</div></p>
+
+<p><div class="question"><strong>Q. How can I track implementation progress?</strong></div>
+<div class="answer"><strong>A.</strong> Mozilla is working on a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=840282">first implementation</a> of an optimizing asm.js compiler for SpiderMonkey. Mozilla also has a <a href="https://wiki.mozilla.org/Javascript:SpiderMonkey:OdinMonkey">development roadmap</a> for future features and optimizations. If other JavaScript engines publish plans to implement asm.js compilers we'll include them here.</div></p>
+
+<p><div class="question"><strong>Q. Why don't you specify a bytecode syntax instead of strange JavaScript idioms?</strong></div>
+<div class="answer"><strong>A.</strong> For compilers like Emscripten, the syntax of a bytecode language simply isn't that important. In fact, most bytecode and machine languages have non-human-readable binary formats. However, we may create a more human-readable surface syntax for asm.js, which could be used for convenient disassembly and human read/write-ability.</div></p>
+
+<p><div class="question"><strong>Q. Does the fact that asm.js is JavaScript mean you can't get predictable performance?</strong></div>
+<div class="answer"><strong>A.</strong> An ahead-of-time (AOT) compiler for asm.js can generate code with very predictable performance, because validated asm.js code is limited to an extremely restricted subset of JavaScript that provides only strictly-typed integers, floats, arithmetic, function calls, and heap accesses.</div></p>
+
+<p><div class="question"><strong>Q. Why not <a href="https://developers.google.com/native-client/">NaCl</a> or <a href="http://www.chromium.org/nativeclient/pnacl/building-and-testing-portable-native-client">PNaCl</a> instead? Are you just being stubborn about JavaScript?</strong></div>
+<div class="answer"><strong>A.</strong> The principal benefit of asm.js over whole new technologies like NaCl and PNaCl is that it works today: existing JavaScript engines already optimize this style of code quite well. This means that developers can ship asm.js today and it'll simply get faster over time. Another important benefit is that it's far simpler to implement, requiring very little additional machinery on top of existing JavaScript engines and no API compatibility layer.</div></p>
+
+<p><div class="question"><strong>Q. Why not just keep optimizing JavaScript JIT compilers instead?</strong></div>
+<div class="answer"><strong>A.</strong> No need to stop! But JIT compilers have less predictable performance based on complicated heuristics. The asm.js model provides a model closer to C/C++ by eliminating dynamic type guards, boxed values, and garbage collection.</div></p>
+
+<p><div class="question"><strong>Q. Isn't it inefficient to have to run the code through a JavaScript interpreter before compiling?</strong></div>
+<div class="answer"><strong>A.</strong> Because of the <a href="http://asmjs.org/spec/latest/#introduction">directive prologue</a>, a JavaScript engine can immediately recognize asm.js code at compile-time and immediately compile it to assembly language, with no need to ever run the code through an interpreter.</div></p>
+
+<p><div class="question"><strong>Q. How can developers get good feedback if their code fails to validate?</strong></div>
+<div class="answer"><strong>A.</strong> The <a href="http://asmjs.org/spec/latest/#introduction">directive prologue</a> identifies the developer's intention that code should be considered valid asm.js. If the code fails to validate, the engine can report the validation error to e.g. a developer console or other developer tools.</div></p>
+
+<p><div class="question"><strong>Q. How can developers debug asm.js code?</strong></div>
+<div class="answer"><strong>A.</strong> This is a problem in general with compiling for the web. <a href="https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit">Source maps</a> can help, but browsers do have more work to do to make debugging compiled code a smoother experience.</div></p>
+
+<p><div class="question"><strong>Q. Can asm.js serve as a VM for managed languages, like the JVM or CLR?</strong></div>
+<div class="answer"><strong>A.</strong> Right now, asm.js has no direct access to garbage-collected data; an asm.js program can only interact indirectly with external data via numeric handles. In future versions we intend to introduce garbage collection and structured data based on the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:binary_data">ES6 structured binary data API</a>, which will make asm.js an even better target for managed languages.</div></p>
+
+<p><div class="question"><strong>Q. Is asm.js compatible with `eval` and `Function`? Can you dynamically invoke the asm.js compiler?</strong></div>
+<div class="answer"><strong>A.</strong> Absolutely! Compilation of an asm.js <a href="http://asmjs.org/spec/latest/#modules">module</a> happens at parse time of the source code. If you trigger that parse time with `eval` or `Function` then you get dynamic compilation.</div></p>
+
+<p><div class="question"><strong>Q. How much of a compile-time hit does asm.js incur?</strong></div>
+<div class="answer"><strong>A.</strong> Validation and compilation are pretty fast but they do incur a compile-time cost, but <strong>only for asm.js code</strong>&mdash;code that does not contain the asm.js <a href="http://asmjs.org/spec/latest/#introduction">directive prologue</a> does not need any additional processing. If you want to avoid the up-front cost of validating and compiling asm.js code, you can use `eval` or `Function` to delay compilation to a later point.</div></p>
+
+<p><div class="question"><strong>Q. Can asm.js help with application startup times?</strong></div>
+<div class="answer"><strong>A.</strong> We intend to propose additional web API's to make it possible to compile asm.js in background threads and to store the results of compilation in offline storage, making it possible to start up faster in future application loads.</div></p>
+
+</body>
+</html>

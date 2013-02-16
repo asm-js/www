@@ -1,0 +1,20 @@
+body {
+    background: black;
+    color: #0c0;
+    margin: 4em;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Courier New, Courier, monospaced;
+}
+
+a {
+    color: #0c0;
+    font-weight: bold;
+}
+
+#faq {
+    color: #aaa;
+    //color: yellow;
+}
+
+.text, .answer, .answer a {
+    color: #aaa;
+}
