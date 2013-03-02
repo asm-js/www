@@ -12,7 +12,7 @@
 <div class="answer"><strong>A.</strong> No, it's just (a subset of) JavaScript. An asm.js program will behave identically whether it is run in an existing JavaScript engine or an ahead-of-time (AOT) compiling engine that recognizes and optimizes asm.js&mdash;except for speed, of course!</div></p>
 
 <p><div class="question"><strong>Q. What kind of performance benefits can I expect to get with asm.js?</strong></div>
-<div class="answer"><strong>A.</strong> It's early to say, but our preliminary benchmarks of C programs compiled to asm.js are usually within a factor of 2 slowdown over native compilation with GCC. We will publish more benchmarks as we collect them.</div></p>
+<div class="answer"><strong>A.</strong> It's early to say, but our preliminary benchmarks of C programs compiled to asm.js are usually within a factor of 2 slowdown over native compilation with <a href="http://clang.llvm.org/">clang</a>. We will publish more benchmarks as we collect them.</div></p>
 
 <p><div class="question"><strong>Q. How can I track implementation progress?</strong></div>
 <div class="answer"><strong>A.</strong> Mozilla is working on a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=840282">first implementation</a> of an optimizing asm.js compiler for SpiderMonkey. Mozilla also has a <a href="https://wiki.mozilla.org/Javascript:SpiderMonkey:OdinMonkey">development roadmap</a> for future features and optimizations. If other JavaScript engines publish plans to implement asm.js compilers we'll include them here.</div></p>
